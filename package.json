@@ -1,0 +1,32 @@
+{
+  "name": "discord-faceit-hub-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devdanetra/discord-faceit-hub-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devdanetra/discord-faceit-hub-bot/issues"
+  },
+  "homepage": "https://github.com/devdanetra/discord-faceit-hub-bot#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.6.0",
+    "@discordjs/rest": "0.1.0-canary.0",
+    "axios": "^0.23.0",
+    "discord-api-types": "^0.23.1",
+    "discord.js": "^13.1.0",
+    "promise-timers": "^1.0.1",
+    "timers-promises": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.9.4"
+  }
+}
