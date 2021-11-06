@@ -44,7 +44,7 @@ class FaceitMatch {
 
   static getMatchByID = async function (matchID) {
     const response = await axios
-      .get(FaceitHub.endpoint + "/" + matchID, {
+      .get(FaceitMatch.endpoint + "/" + matchID, {
         headers: { Authorization: `Bearer ${apiToken}` },
       })
       .catch(function (error) {

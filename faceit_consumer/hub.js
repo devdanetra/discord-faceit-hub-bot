@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 const { apiSource, apiToken } = require("../config.json");
-const {FaceitMatch} = require("./match")
+const { FaceitMatch } = require("./match");
 
 class FaceitHub {
   static endpoint = apiSource + "hubs";
@@ -15,7 +15,6 @@ class FaceitHub {
       });
     var result = new FaceitHub();
     Object.assign(result, response.data);
-    console.log(result);
     return result;
   };
 
@@ -34,11 +33,29 @@ class FaceitHub {
       });
     var matches = new Array();
     response.data.items.forEach((element) => {
-      console.log(element);
       var temp = new FaceitMatch();
       matches.push(Object.assign(temp, element));
     });
     return matches;
+  };
+
+  getMatchByID = async function (type, offset, limit) {
+    const response = await axios
+      .get(FaceitHub.endpoint + "/" + this.hub_id + "/matches", { //TODO ADJUST THIS
+        params: {
+          type: type,
+          offset: offset,
+          limit: limit,
+        },
+        headers: { Authorization: `Bearer ${apiToken}` },
+      })
+      .catch(function (error) {
+        return;
+      });
+    var result = new FaceitMatch();
+    Object.assign(result, response.data);
+    console.log(result);
+    return result;
   };
 
   getRules = async function (type, offset, limit) {
@@ -51,7 +68,6 @@ class FaceitHub {
       });
     var result = new FaceitHubRules();
     Object.assign(result, response.data);
-    console.log(result);
     return result;
   };
 }
