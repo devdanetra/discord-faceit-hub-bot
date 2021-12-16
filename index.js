@@ -4,6 +4,7 @@ const {
 } = require("./config.json");
 const fs = require("fs");
 const { refreshCommands } = require("./registercomms");
+const { Verification } = require("./db_modules/verification");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -19,6 +20,7 @@ for (const file of commandFiles) {
 
 client.once("ready", async () => {
   await refreshCommands();
+  await Verification.deleteAll();
 });
 
 client.on("interactionCreate", async (interaction) => {

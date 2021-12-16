@@ -2,7 +2,9 @@ const { SlashCommandBuilder, SlashCommandSubcommandGroupBuilder } = require("@di
 const { MessageEmbed, Client, Intents } = require('discord.js');
 const bot = require("../index.js");
 const { HubThread } = require("../automation/hub");
-const { logChannel } = require("../helper/logger.js");
+const { logChannel, getAdminRole } = require("../helper/generalFetcher.js");
+const {roleIDs } = require("../config.json");
+
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,6 +13,8 @@ module.exports = {
     .setDefaultPermission(true),
 
   async execute(interaction) {
+        if(!interaction.member.roles.cache.has(roleIDs.admin))
+            return await interaction.reply({ content: 'No perms',ephemeral: true});
         var log = logChannel(interaction.client);
         await interaction.reply({ content: 'Sending message to start threads...',ephemeral: true});
         return startAutomations(interaction,log);

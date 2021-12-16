@@ -34,8 +34,6 @@ class DBUser {
       this.values(),
       function (err, result) {
         if (err) throw err;
-
-        console.log(result);
         return result;
       }
     );
@@ -94,11 +92,10 @@ class DBUser {
 
   static async getByFaceitId(faceitId) {
     return new Promise((resolve, reject) => {
-      console.log(faceitId);
       pool.query(
-        `SELECT * FROM verifications WHERE faceit_id = ${faceitId}`,
+        `SELECT * FROM users WHERE faceit_id = "${faceitId}"`,
         function (err, result) {
-          if(result == undefined)
+          if(result == undefined || err || result.length == 0)
             return resolve(undefined);
           return resolve(new DBUser(
             result[0].STEAM_ID,

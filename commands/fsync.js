@@ -5,6 +5,7 @@ const { FaceitPlayer } = require("../faceit_consumer/player");
 const { SteamUser } = require("../steam_consumer/user");
 const moment = require("moment");
 const { DBUser } = require("../db_modules/users");
+const { getUserRole } = require("../helper/generalFetcher");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -78,7 +79,7 @@ async function createVerification(interaction, player) {
   var expirationDate = moment().add(5, "minutes");
 
   var verification = new Verification(
-    player.steam_id_64,
+    player.games.csgo.game_player_id,
     player.player_id,
     interaction.member.id,
     randToken,
@@ -108,6 +109,7 @@ async function startVerificationThread(interaction, verification) {
         verification.faceitId,
         interaction.member.id
       ).pushToDb();
+      await interaction.member.roles.add(await getUserRole(interaction.guild));
       await interaction.editReply({
         content: `Account id : ${verification.faceitId} succesfully synchronized.`,
         ephemeral: true,

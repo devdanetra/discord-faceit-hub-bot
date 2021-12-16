@@ -1,7 +1,8 @@
 const { SlashCommandBuilder, SlashCommandSubcommandGroupBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require('discord.js');
 const { HubThread } = require("../automation/hub");
-const { logChannel } = require("../helper/logger");
+const { logChannel } = require("../helper/generalFetcher");
+const {roleIDs } = require("../config.json");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -10,6 +11,8 @@ module.exports = {
     .setDefaultPermission(true),
 
   async execute(interaction) {
+        if(!interaction.member.roles.cache.has(roleIDs.admin))
+            return await interaction.reply({ content: 'No perms',ephemeral: true});
         var log = logChannel(interaction.client);
         interaction.reply({ content: 'Sending message to stop threads...'});
         return stopAutomations(log);

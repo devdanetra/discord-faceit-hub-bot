@@ -52,7 +52,6 @@ class FaceitMatch {
       });
     var result = new FaceitMatch();
     Object.assign(result, response.data);
-    console.log(result);
     return result;
   };
 }

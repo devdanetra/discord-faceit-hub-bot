@@ -66,6 +66,16 @@ class Verification {
     );
   }
 
+  static async deleteAll(steamId) {
+    pool.query(
+      `DELETE FROM verifications`,
+      function (err, result) {
+        if (err) return 0;
+        return 1;
+      }
+    );
+  }
+
   static async removeFromDbByDiscordID(discordId) {
     pool.query(
       `DELETE FROM verifications WHERE discord_id = '${discordId}'`,
